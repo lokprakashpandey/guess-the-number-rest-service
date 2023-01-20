@@ -15,4 +15,5 @@ import com.lokpandey.guessthenumber.models.Game;
 public interface GuessTheNumberService {
     
     int beginGame();
+    int beginGame(Game game);
 }

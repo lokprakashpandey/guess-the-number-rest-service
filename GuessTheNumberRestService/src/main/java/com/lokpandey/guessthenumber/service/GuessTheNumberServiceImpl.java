@@ -35,6 +35,13 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
         return guessDao.add(game).getId();
     } 
     
+    @Override
+    public int beginGame(Game game) {
+        
+        //just save this game object on the database and get the id of the saved object
+        return guessDao.add(game).getId();
+    } 
+    
     
     //generate a 4-digit number in String form where every digit is different
     private String generateFourDigitNumber() {

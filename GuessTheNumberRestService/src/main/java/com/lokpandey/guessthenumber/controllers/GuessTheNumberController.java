@@ -11,6 +11,7 @@ import com.lokpandey.guessthenumber.models.Game;
 import com.lokpandey.guessthenumber.service.GuessTheNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,4 +34,12 @@ public class GuessTheNumberController {
     public int create() {
         return service.beginGame();
     }
+    
+    @PostMapping(path = "/begin", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public int create(@RequestBody Game game) {
+        return service.beginGame(game);
+    }
+    
+    
 }

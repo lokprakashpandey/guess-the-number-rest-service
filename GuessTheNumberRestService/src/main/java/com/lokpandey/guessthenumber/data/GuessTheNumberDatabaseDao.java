@@ -44,6 +44,7 @@ public class GuessTheNumberDatabaseDao implements GuessTheNumberDao {
 
         }, keyHolder);
 
+        //get the id of the newly inserted game object and set it to our object
         game.setId(keyHolder.getKey().intValue());
 
         return game;
