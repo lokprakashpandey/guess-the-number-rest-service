@@ -9,6 +9,7 @@ package com.lokpandey.guessthenumber.service;
 
 import com.lokpandey.guessthenumber.data.GuessTheNumberDao;
 import com.lokpandey.guessthenumber.models.Game;
+import com.lokpandey.guessthenumber.models.Round;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,10 +18,10 @@ import org.springframework.stereotype.Component;
 public class GuessTheNumberServiceImpl implements GuessTheNumberService {
 
     @Autowired
-    private final GuessTheNumberDao guessDao;
+    private final GuessTheNumberDao dao;
     
-    public GuessTheNumberServiceImpl(GuessTheNumberDao guessDao) {
-        this.guessDao = guessDao;
+    public GuessTheNumberServiceImpl(GuessTheNumberDao dao) {
+        this.dao = dao;
     }
     
     @Override
@@ -32,14 +33,14 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
         
         //now save this game object to database using auto increment id
         // and get that id of the saved object from database and return it
-        return guessDao.add(game).getId();
+        return dao.add(game).getId();
     } 
     
     @Override
     public int beginGame(Game game) {
         
         //just save this game object on the database and get the id of the saved object
-        return guessDao.add(game).getId();
+        return dao.add(game).getId();
     } 
     
     
@@ -55,5 +56,21 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
             randomString += randomNumber;
         }
         return randomString;
+    }
+
+    @Override
+    public Round testGuess(String guess, int gameId) {
+        //Get the game object with the gameId
+        Game game = dao.findById(gameId);
+        
+        //If Game does not exist, show error message and return
+        
+        
+        //If the game's answer and guess are same, 
+        //then fill in the round object and save information in Rounds table
+        
+        
+        //Return the round object
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

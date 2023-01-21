@@ -14,4 +14,5 @@ import com.lokpandey.guessthenumber.models.Game;
  */
 public interface GuessTheNumberDao {
     Game add(Game game);
+    Game findById(int id);
 }

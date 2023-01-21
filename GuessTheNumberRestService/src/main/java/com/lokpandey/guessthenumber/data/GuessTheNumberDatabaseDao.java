@@ -10,9 +10,12 @@ package com.lokpandey.guessthenumber.data;
 import com.lokpandey.guessthenumber.models.Game;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
@@ -49,5 +52,26 @@ public class GuessTheNumberDatabaseDao implements GuessTheNumberDao {
 
         return game;
         
+    }
+    
+    @Override
+    public Game findById(int id) {
+
+        final String sql = "SELECT id, answer, status "
+                + "FROM Games WHERE id = ?;";
+
+        return jdbcTemplate.queryForObject(sql, new GameMapper(), id);
+    }
+    
+    private static final class GameMapper implements RowMapper<Game> {
+
+        @Override
+        public Game mapRow(ResultSet rs, int index) throws SQLException {
+            Game game = new Game();
+            game.setId(rs.getInt("id"));
+            game.setAnswer(rs.getString("answer"));
+            game.setStatus(rs.getString("status"));
+            return game;
+        }
     }
 }
