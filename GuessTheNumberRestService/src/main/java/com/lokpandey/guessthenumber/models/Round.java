@@ -7,6 +7,7 @@
 
 package com.lokpandey.guessthenumber.models;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
@@ -15,7 +16,7 @@ public class Round {
     private int id;
     private Game game;
     private String guess;
-    private LocalDateTime guessTime;
+    private Timestamp guessTime;
     private String result;
 
     public int getId() {
@@ -42,11 +43,11 @@ public class Round {
         this.guess = guess;
     }
 
-    public LocalDateTime getGuessTime() {
+    public Timestamp getGuessTime() {
         return guessTime;
     }
 
-    public void setGuessTime(LocalDateTime guessTime) {
+    public void setGuessTime(Timestamp guessTime) {
         this.guessTime = guessTime;
     }
 

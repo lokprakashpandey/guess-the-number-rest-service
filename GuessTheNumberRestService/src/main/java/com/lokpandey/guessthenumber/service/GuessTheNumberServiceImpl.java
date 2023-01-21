@@ -7,21 +7,28 @@
 
 package com.lokpandey.guessthenumber.service;
 
-import com.lokpandey.guessthenumber.data.GuessTheNumberDao;
 import com.lokpandey.guessthenumber.models.Game;
 import com.lokpandey.guessthenumber.models.Round;
+import java.time.LocalDateTime;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import com.lokpandey.guessthenumber.data.GameDao;
+import com.lokpandey.guessthenumber.data.RoundDao;
+import java.sql.Timestamp;
 
 @Component
 public class GuessTheNumberServiceImpl implements GuessTheNumberService {
 
     @Autowired
-    private final GuessTheNumberDao dao;
+    private final GameDao gameDao;
     
-    public GuessTheNumberServiceImpl(GuessTheNumberDao dao) {
-        this.dao = dao;
+    @Autowired
+    private final RoundDao roundDao;
+    
+    public GuessTheNumberServiceImpl(GameDao gameDao, RoundDao roundDao) {
+        this.gameDao = gameDao;
+        this.roundDao = roundDao;
     }
     
     @Override
@@ -33,14 +40,14 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
         
         //now save this game object to database using auto increment id
         // and get that id of the saved object from database and return it
-        return dao.add(game).getId();
+        return gameDao.add(game).getId();
     } 
     
     @Override
     public int beginGame(Game game) {
         
         //just save this game object on the database and get the id of the saved object
-        return dao.add(game).getId();
+        return gameDao.add(game).getId();
     } 
     
     
@@ -61,16 +68,40 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
     @Override
     public Round testGuess(String guess, int gameId) {
         //Get the game object with the gameId
-        Game game = dao.findById(gameId);
+        //If Game does not exist, shows error message with timestamp
+        //The exception handler does this
         
-        //If Game does not exist, show error message and return
+        Game game = gameDao.findById(gameId);
         
+        //Fill in the round object and save information in Rounds table
+        Round round = new Round();
+        round.setGame(game);
+        round.setGuess(guess);
+        round.setGuessTime(Timestamp.valueOf(LocalDateTime.now()));
         
-        //If the game's answer and guess are same, 
-        //then fill in the round object and save information in Rounds table
+        //e for exact match, p for partial match
+        int e = 0, p = 0;
+        if(game.getAnswer().equalsIgnoreCase(guess)) {
+            //Update game's status if guess is correct
+            game.setStatus("finished");
+            gameDao.update(game);
+            //set result
+            e=4; p=0;
+        }
+        else {
+            for(int i=0; i<4; i++) {
+                if(game.getAnswer().charAt(i) == guess.charAt(i)) {
+                    e++;
+                }
+                else p++;
+            }
+        }
+        round.setResult("e:"+e+":p:"+p);
         
+        //Now, save round object to database
+        roundDao.add(round);
         
         //Return the round object
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return round;
     }
 }

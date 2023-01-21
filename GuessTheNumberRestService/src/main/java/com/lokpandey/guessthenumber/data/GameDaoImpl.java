@@ -2,7 +2,7 @@
  * @author Lok Prakash Pandey
  * email: lokprakashpandey@gmail.com
  * date: Jan 18, 2023
- * purpose: Database implementation of GuessTheNumberDao interface
+ * purpose: Database implementation of GameDao interface
  */
 
 package com.lokpandey.guessthenumber.data;
@@ -20,12 +20,12 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class GuessTheNumberDatabaseDao implements GuessTheNumberDao {
+public class GameDaoImpl implements GameDao {
 
     private final JdbcTemplate jdbcTemplate;
     
     @Autowired
-    public GuessTheNumberDatabaseDao(JdbcTemplate jdbcTemplate) {
+    public GameDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -74,4 +74,20 @@ public class GuessTheNumberDatabaseDao implements GuessTheNumberDao {
             return game;
         }
     }
+    
+    @Override
+    public boolean update(Game game) {
+
+        final String sql = "UPDATE Games SET "
+                + "answer = ?, "
+                + "status = ? "
+                + "WHERE id = ?;";
+
+        return jdbcTemplate.update(sql,
+                game.getAnswer(),
+                game.getStatus(),
+                game.getId()) > 0;
+    }
+    
+    
 }
