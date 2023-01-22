@@ -81,7 +81,8 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
         
         //e for exact match, p for partial match
         int e = 0, p = 0;
-        if(game.getAnswer().equalsIgnoreCase(guess)) {
+        String answer = game.getAnswer();
+        if(answer.equalsIgnoreCase(guess)) {
             //Update game's status if guess is correct
             game.setStatus("finished");
             gameDao.update(game);
@@ -90,11 +91,15 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
         }
         else {
             for(int i=0; i<4; i++) {
-                if(game.getAnswer().charAt(i) == guess.charAt(i)) {
-                    e++;
+                for(int j=0; j<4; j++) {
+                    if(answer.charAt(i) == guess.charAt(j)) {
+                        if(i == j) e++; // if position of matching character is the same => exact match
+                        else p++;       // if position is not same, then it is partial match
+                    }
                 }
-                else p++;
             }
+            //for unfinished games, hide the answer
+            game.setAnswer("****");
         }
         round.setResult("e:"+e+":p:"+p);
         
