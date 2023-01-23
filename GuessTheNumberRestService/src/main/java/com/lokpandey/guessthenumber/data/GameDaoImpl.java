@@ -95,4 +95,6 @@ public class GameDaoImpl implements GameDao {
         final String sql = "SELECT id, answer, status FROM Games;";
         return jdbcTemplate.query(sql, new GameMapper());
     }
+    
+    
 }

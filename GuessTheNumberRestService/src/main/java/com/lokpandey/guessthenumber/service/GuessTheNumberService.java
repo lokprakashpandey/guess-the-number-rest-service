@@ -20,5 +20,7 @@ public interface GuessTheNumberService {
     int beginGame(Game game);
     Round testGuess(String guess, int gameId);
     List<Game> getAllGames();
+    Game findGameById(int id);
+    
     
 }

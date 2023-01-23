@@ -124,4 +124,11 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
                 .forEach(game -> game.setAnswer("****"));
         return games;
     }
+
+    @Override
+    public Game findGameById(int id) {
+        return gameDao.findById(id);
+    }
+
+    
 }
