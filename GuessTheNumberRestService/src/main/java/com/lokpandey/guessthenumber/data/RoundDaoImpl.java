@@ -78,7 +78,7 @@ public class RoundDaoImpl implements RoundDao {
             round.setId(rs.getInt("id"));
             
             //find game object to set to round
-            Game game = gameDao.findById(rs.getInt("gameId"));
+            Game game = gameDao.get(rs.getInt("gameId"));
             round.setGame(game);
             
             round.setGuess(rs.getString("guess"));

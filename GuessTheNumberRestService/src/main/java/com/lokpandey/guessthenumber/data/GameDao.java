@@ -15,8 +15,9 @@ import java.util.List;
  */
 public interface GameDao {
     Game add(Game game);
-    Game findById(int id);
+    Game get(int id);
     boolean update(Game game);
     List<Game> getAll();
+    boolean deleteById(int id);
     
 }

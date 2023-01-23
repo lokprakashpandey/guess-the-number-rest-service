@@ -72,7 +72,7 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
         //If Game does not exist, shows error message with timestamp
         //The exception handler does this
         
-        Game game = gameDao.findById(gameId);
+        Game game = gameDao.get(gameId);
         
         //Fill in the round object and save information in Rounds table
         Round round = new Round();
@@ -127,7 +127,7 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
 
     @Override
     public Game findGameById(int gameId) {
-        Game game = gameDao.findById(gameId);
+        Game game = gameDao.get(gameId);
         if(game.getStatus().equalsIgnoreCase("In progress")) game.setAnswer("****");
         return game;
     }

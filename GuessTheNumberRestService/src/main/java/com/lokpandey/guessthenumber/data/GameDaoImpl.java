@@ -56,7 +56,7 @@ public class GameDaoImpl implements GameDao {
     }
     
     @Override
-    public Game findById(int id) {
+    public Game get(int id) {
 
         final String sql = "SELECT id, answer, status "
                 + "FROM Games WHERE id = ?;";
@@ -96,5 +96,10 @@ public class GameDaoImpl implements GameDao {
         return jdbcTemplate.query(sql, new GameMapper());
     }
     
+    @Override
+    public boolean deleteById(int id) {
+        final String sql = "DELETE FROM Games WHERE id = ?;";
+        return jdbcTemplate.update(sql, id) > 0;
+    }
     
 }
