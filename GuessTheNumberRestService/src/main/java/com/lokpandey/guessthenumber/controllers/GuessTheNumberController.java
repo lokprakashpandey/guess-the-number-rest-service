@@ -10,9 +10,11 @@ package com.lokpandey.guessthenumber.controllers;
 import com.lokpandey.guessthenumber.models.Game;
 import com.lokpandey.guessthenumber.models.Round;
 import com.lokpandey.guessthenumber.service.GuessTheNumberService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +51,11 @@ public class GuessTheNumberController {
     @PostMapping("/guess")
     public Round guess(@RequestParam String guess, @RequestParam int gameId) {
         return service.testGuess(guess, gameId);
+    }
+    
+    @GetMapping("/game")
+    public List<Game> allGames() {
+        return service.getAllGames();
     }
     
 }

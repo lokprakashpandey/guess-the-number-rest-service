@@ -8,6 +8,7 @@ package com.lokpandey.guessthenumber.service;
 
 import com.lokpandey.guessthenumber.models.Game;
 import com.lokpandey.guessthenumber.models.Round;
+import java.util.List;
 
 /**
  *
@@ -18,4 +19,6 @@ public interface GuessTheNumberService {
     int beginGame();
     int beginGame(Game game);
     Round testGuess(String guess, int gameId);
+    List<Game> getAllGames();
+    
 }

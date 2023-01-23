@@ -7,6 +7,7 @@
 package com.lokpandey.guessthenumber.data;
 
 import com.lokpandey.guessthenumber.models.Game;
+import java.util.List;
 
 /**
  *
@@ -16,4 +17,6 @@ public interface GameDao {
     Game add(Game game);
     Game findById(int id);
     boolean update(Game game);
+    List<Game> getAll();
+    
 }

@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -62,7 +63,7 @@ public class GameDaoImpl implements GameDao {
 
         return jdbcTemplate.queryForObject(sql, new GameMapper(), id);
     }
-    
+
     private static final class GameMapper implements RowMapper<Game> {
 
         @Override
@@ -89,5 +90,9 @@ public class GameDaoImpl implements GameDao {
                 game.getId()) > 0;
     }
     
-    
+    @Override
+    public List<Game> getAll() {
+        final String sql = "SELECT id, answer, status FROM Games;";
+        return jdbcTemplate.query(sql, new GameMapper());
+    }
 }

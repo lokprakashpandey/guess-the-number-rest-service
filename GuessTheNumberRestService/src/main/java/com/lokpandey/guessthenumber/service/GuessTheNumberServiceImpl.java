@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import com.lokpandey.guessthenumber.data.GameDao;
 import com.lokpandey.guessthenumber.data.RoundDao;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Component
 public class GuessTheNumberServiceImpl implements GuessTheNumberService {
@@ -108,5 +109,19 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
         
         //Return the round object
         return round;
+    }
+
+    @Override
+    public List<Game> getAllGames() {
+        List<Game> games = gameDao.getAll();
+//        for(Game  game: games) {
+//            if(game.getStatus().equalsIgnoreCase("In progress")) {
+//                game.setAnswer("****");
+//            }
+//        }
+        games.stream()
+                .filter(game -> game.getStatus().equalsIgnoreCase("In progress"))
+                .forEach(game -> game.setAnswer("****"));
+        return games;
     }
 }
