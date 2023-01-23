@@ -126,9 +126,16 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
     }
 
     @Override
-    public Game findGameById(int id) {
-        return gameDao.findById(id);
+    public Game findGameById(int gameId) {
+        Game game = gameDao.findById(gameId);
+        if(game.getStatus().equalsIgnoreCase("In progress")) game.setAnswer("****");
+        return game;
     }
 
+    @Override
+    public List<Round> findRoundsByGameId(int gameId) {
+        List<Round> rounds = roundDao.getRounds(gameId);
+        return rounds;
+    }
     
 }

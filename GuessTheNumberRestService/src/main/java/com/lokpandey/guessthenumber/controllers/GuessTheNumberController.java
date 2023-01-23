@@ -60,13 +60,18 @@ public class GuessTheNumberController {
         return service.getAllGames();
     }
     
-     @GetMapping("/game/{id}")
-    public ResponseEntity<Game> findGameById(@PathVariable int id) {
-        Game result = service.findGameById(id);
+    @GetMapping("/game/{gameId}")
+    public ResponseEntity<Game> findGameById(@PathVariable int gameId) {
+        Game result = service.findGameById(gameId);
         if (result == null) {
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(result);
+    }
+    
+    @GetMapping("/rounds/{gameId}")
+    public List<Round> findRoundsByGameId(@PathVariable int gameId) {
+        return service.findRoundsByGameId(gameId);
     }
     
 }

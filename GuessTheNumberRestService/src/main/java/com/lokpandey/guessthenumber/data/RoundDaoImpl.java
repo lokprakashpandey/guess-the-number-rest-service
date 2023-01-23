@@ -7,22 +7,31 @@
 
 package com.lokpandey.guessthenumber.data;
 
+import com.lokpandey.guessthenumber.models.Game;
 import com.lokpandey.guessthenumber.models.Round;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class RoundDaoImpl implements RoundDao {
+    
+    private final GameDao gameDao;
+    
     private final JdbcTemplate jdbcTemplate;
     
     @Autowired
-    public RoundDaoImpl(JdbcTemplate jdbcTemplate) {
+    public RoundDaoImpl(JdbcTemplate jdbcTemplate, GameDao gameDao) {
         this.jdbcTemplate = jdbcTemplate;
+        this.gameDao = gameDao;
     }
     
     @Override
@@ -50,5 +59,32 @@ public class RoundDaoImpl implements RoundDao {
 
         return round;
         
+    }
+
+    @Override
+    public List<Round> getRounds(int gameId) {
+        final String sql = "SELECT id, gameId, guess, guessTime, result "
+                            + "FROM Rounds "
+                            + "WHERE gameId = ? "
+                            + "ORDER BY guessTime desc;";
+        return jdbcTemplate.query(sql, new RoundMapper(), gameId);
+    }
+    
+    private final class RoundMapper implements RowMapper<Round> {
+
+        @Override
+        public Round mapRow(ResultSet rs, int index) throws SQLException {
+            Round round = new Round();
+            round.setId(rs.getInt("id"));
+            
+            //find game object to set to round
+            Game game = gameDao.findById(rs.getInt("gameId"));
+            round.setGame(game);
+            
+            round.setGuess(rs.getString("guess"));
+            round.setGuessTime(rs.getTimestamp("guessTime"));
+            round.setResult(rs.getString("result"));
+            return round;
+        }
     }
 }
