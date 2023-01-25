@@ -61,10 +61,11 @@ public class Round {
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 3;
         hash = 37 * hash + this.id;
         hash = 37 * hash + Objects.hashCode(this.game.getId());
         hash = 37 * hash + Objects.hashCode(this.guess);
+        hash = 37 * hash + Objects.hashCode(this.guessTime);
         hash = 37 * hash + Objects.hashCode(this.result);
         return hash;
     }
@@ -93,6 +94,4 @@ public class Round {
         return Objects.equals(this.game.getId(), other.game.getId());
     }
 
-    
-    
 }

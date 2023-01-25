@@ -44,9 +44,10 @@ public class GameDaoImplTest {
     //clear up the Games table for each test
     @Before
     public void setUp() {    
-        
+        //These two lines have to be moved up
         List<Round> rounds = roundDao.getAllRounds();
         for(Round round: rounds) roundDao.deleteRoundById(round.getId());
+        
         List<Game> games = gameDao.getAllGames();
         for(Game game: games) gameDao.deleteById(game.getId());
     }
