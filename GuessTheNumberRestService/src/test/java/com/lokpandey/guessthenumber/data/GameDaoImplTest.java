@@ -7,10 +7,13 @@
 package com.lokpandey.guessthenumber.data;
 
 import com.lokpandey.guessthenumber.models.Game;
+import com.lokpandey.guessthenumber.models.Round;
 import java.util.List;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,17 +29,42 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class GameDaoImplTest {
     
     @Autowired
-    GameDao gameDao;
+    private GameDao gameDao;
     
+    @Autowired 
+    private RoundDao roundDao;
+        
     public GameDaoImplTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
     }
     
     //clear up the Games table for each test
     @Before
-    public void setUp() {
+    public void setUp() {    
         
-        List<Game> games = gameDao.getAll();
+        List<Round> rounds = roundDao.getAllRounds();
+        for(Round round: rounds) roundDao.deleteRoundById(round.getId());
+        List<Game> games = gameDao.getAllGames();
         for(Game game: games) gameDao.deleteById(game.getId());
+    }
+    
+    
+    //*** Workaround for static AfterClass method ***
+    //This is for clearing up the games table so that it contains no data
+    //The Rounds table has not been modified so no need to change it
+    private static GameDao staticGameDao;
+    @Autowired
+    public void setStaticGameDao(GameDao gameDao) {
+        GameDaoImplTest.staticGameDao = gameDao;
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+        List<Game> games = staticGameDao.getAllGames();
+        for(Game game: games) staticGameDao.deleteById(game.getId());
     }
     
     /**
@@ -69,7 +97,7 @@ public class GameDaoImplTest {
         game2.setStatus("In Progress");
         gameDao.add(game2);
         
-        List<Game> games = gameDao.getAll();
+        List<Game> games = gameDao.getAllGames();
         assertEquals(2, games.size());
         assertTrue(games.contains(game));
         assertTrue(games.contains(game2));        
@@ -117,7 +145,7 @@ public class GameDaoImplTest {
         catch(EmptyResultDataAccessException e) {
         }
         
-        List<Game> games = gameDao.getAll();
+        List<Game> games = gameDao.getAllGames();
         assertEquals(games.size(), 0);
     }
     

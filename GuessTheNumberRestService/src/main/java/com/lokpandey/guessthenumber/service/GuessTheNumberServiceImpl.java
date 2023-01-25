@@ -113,7 +113,7 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
 
     @Override
     public List<Game> getAllGames() {
-        List<Game> games = gameDao.getAll();
+        List<Game> games = gameDao.getAllGames();
 //        for(Game  game: games) {
 //            if(game.getStatus().equalsIgnoreCase("In progress")) {
 //                game.setAnswer("****");

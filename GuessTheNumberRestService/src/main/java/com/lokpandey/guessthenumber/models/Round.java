@@ -8,7 +8,7 @@
 package com.lokpandey.guessthenumber.models;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 public class Round {
@@ -58,5 +58,41 @@ public class Round {
     public void setResult(String result) {
         this.result = result;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + this.id;
+        hash = 37 * hash + Objects.hashCode(this.game.getId());
+        hash = 37 * hash + Objects.hashCode(this.guess);
+        hash = 37 * hash + Objects.hashCode(this.result);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Round other = (Round) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.guess, other.guess)) {
+            return false;
+        }
+        if (!Objects.equals(this.result, other.result)) {
+            return false;
+        }
+        return Objects.equals(this.game.getId(), other.game.getId());
+    }
+
+    
     
 }

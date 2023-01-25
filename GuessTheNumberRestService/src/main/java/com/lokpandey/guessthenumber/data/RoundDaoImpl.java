@@ -58,7 +58,6 @@ public class RoundDaoImpl implements RoundDao {
         round.setId(keyHolder.getKey().intValue());
 
         return round;
-        
     }
 
     @Override
@@ -68,6 +67,18 @@ public class RoundDaoImpl implements RoundDao {
                             + "WHERE gameId = ? "
                             + "ORDER BY guessTime desc;";
         return jdbcTemplate.query(sql, new RoundMapper(), gameId);
+    }
+
+    @Override
+    public List<Round> getAllRounds() {
+        final String sql = "SELECT id, gameId, guess, guessTime, result FROM Rounds;";
+        return jdbcTemplate.query(sql, new RoundMapper());
+    }
+
+    @Override
+    public boolean deleteRoundById(int roundId) {
+        final String sql = "DELETE FROM Rounds WHERE id = ?;";
+        return jdbcTemplate.update(sql, roundId) > 0;
     }
     
     private final class RoundMapper implements RowMapper<Round> {

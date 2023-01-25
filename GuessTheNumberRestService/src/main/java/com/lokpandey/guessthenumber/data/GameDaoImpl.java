@@ -91,7 +91,7 @@ public class GameDaoImpl implements GameDao {
     }
     
     @Override
-    public List<Game> getAll() {
+    public List<Game> getAllGames() {
         final String sql = "SELECT id, answer, status FROM Games;";
         return jdbcTemplate.query(sql, new GameMapper());
     }
