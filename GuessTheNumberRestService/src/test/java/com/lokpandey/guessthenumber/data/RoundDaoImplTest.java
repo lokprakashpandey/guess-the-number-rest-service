@@ -11,6 +11,7 @@ import com.lokpandey.guessthenumber.models.Round;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -44,6 +45,29 @@ public class RoundDaoImplTest {
         for(Round round: rounds) roundDao.deleteRoundById(round.getId());
         List<Game> games = gameDao.getAllGames();
         for(Game game: games) gameDao.deleteById(game.getId());
+    }
+    
+    
+    //for cleanup
+    private static RoundDao staticRoundDao;
+    @Autowired
+    public void setStaticGameDao(RoundDao roundDao) {
+        RoundDaoImplTest.staticRoundDao = roundDao;
+    }
+    
+    private static GameDao staticGameDao;
+    @Autowired
+    public void setStaticGameDao(GameDao gameDao) {
+        RoundDaoImplTest.staticGameDao = gameDao;
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+        List<Round> rounds = staticRoundDao.getAllRounds();
+        for(Round round: rounds) staticRoundDao.deleteRoundById(round.getId());
+        
+        List<Game> games = staticGameDao.getAllGames();
+        for(Game game: games) staticGameDao.deleteById(game.getId());
     }
 
     /**
