@@ -61,12 +61,12 @@ public class Round {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 37 * hash + this.id;
-        hash = 37 * hash + Objects.hashCode(this.game.getId());
-        hash = 37 * hash + Objects.hashCode(this.guess);
-        hash = 37 * hash + Objects.hashCode(this.guessTime);
-        hash = 37 * hash + Objects.hashCode(this.result);
+        int hash = 7;
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + Objects.hashCode(this.game);
+        hash = 97 * hash + Objects.hashCode(this.guess);
+        hash = 97 * hash + Objects.hashCode(this.guessTime);
+        hash = 97 * hash + Objects.hashCode(this.result);
         return hash;
     }
 
@@ -91,7 +91,12 @@ public class Round {
         if (!Objects.equals(this.result, other.result)) {
             return false;
         }
-        return Objects.equals(this.game.getId(), other.game.getId());
+        if (!Objects.equals(this.game, other.game)) {
+            return false;
+        }
+        return Objects.equals(this.guessTime, other.guessTime);
     }
+
+    
 
 }
