@@ -96,11 +96,11 @@ public class RoundDaoImplTest {
         
         List<Round> rounds = roundDao.getRounds(game.getId());
         
-        System.out.println(rounds.get(0).getGuessTime());
-        System.out.println(rounds.get(1).getGuessTime());
-        System.out.println(round.getGuessTime());
-        System.out.println(round2.getGuessTime());
-        
+//        System.out.println(rounds.get(0).getGuessTime());
+//        System.out.println(rounds.get(1).getGuessTime());
+//        System.out.println(round.getGuessTime());
+//        System.out.println(round2.getGuessTime());
+//        
         
         assertEquals(rounds.size(), 2);
         assertTrue(rounds.contains(round));
