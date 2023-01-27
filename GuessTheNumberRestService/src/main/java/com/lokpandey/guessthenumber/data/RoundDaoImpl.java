@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -48,7 +49,7 @@ public class RoundDaoImpl implements RoundDao {
 
             statement.setInt(1, round.getGame().getId());
             statement.setString(2, round.getGuess());
-            statement.setTimestamp(3, round.getGuessTime());
+            statement.setTimestamp(3, Timestamp.valueOf(round.getGuessTime()));
             statement.setString(4, round.getResult());
             return statement;
 
@@ -57,7 +58,11 @@ public class RoundDaoImpl implements RoundDao {
         //get the id of the newly inserted game object and set it to our object
         round.setId(keyHolder.getKey().intValue());
 
-        return getRound(round.getId());
+        //Here, round is not returned because setTimestamp may change
+        //the timestamp value to be sent to DB and thus differs from round object's
+        //timestamp value. So we return the saved Round object rather than the in-memory
+        //round object.
+        return round;
     }
 
     
@@ -102,7 +107,7 @@ public class RoundDaoImpl implements RoundDao {
             round.setGame(game);
             
             round.setGuess(rs.getString("guess"));
-            round.setGuessTime(rs.getTimestamp("guessTime"));
+            round.setGuessTime(rs.getTimestamp("guessTime").toLocalDateTime());
             round.setResult(rs.getString("result"));
             return round;
         }

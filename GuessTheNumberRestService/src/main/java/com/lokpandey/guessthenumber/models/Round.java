@@ -8,6 +8,7 @@
 package com.lokpandey.guessthenumber.models;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 
@@ -16,57 +17,17 @@ public class Round {
     private int id;
     private Game game;
     private String guess;
-    private Timestamp guessTime;
+    private LocalDateTime guessTime;
     private String result;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    public String getGuess() {
-        return guess;
-    }
-
-    public void setGuess(String guess) {
-        this.guess = guess;
-    }
-
-    public Timestamp getGuessTime() {
-        return guessTime;
-    }
-
-    public void setGuessTime(Timestamp guessTime) {
-        this.guessTime = guessTime;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + this.id;
-        hash = 97 * hash + Objects.hashCode(this.game);
-        hash = 97 * hash + Objects.hashCode(this.guess);
-        hash = 97 * hash + Objects.hashCode(this.guessTime);
-        hash = 97 * hash + Objects.hashCode(this.result);
+        hash = 37 * hash + this.id;
+        hash = 37 * hash + Objects.hashCode(this.game);
+        hash = 37 * hash + Objects.hashCode(this.guess);
+        hash = 37 * hash + Objects.hashCode(this.guessTime);
+        hash = 37 * hash + Objects.hashCode(this.result);
         return hash;
     }
 
@@ -97,6 +58,44 @@ public class Round {
         return Objects.equals(this.guessTime, other.guessTime);
     }
 
-    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public String getGuess() {
+        return guess;
+    }
+
+    public void setGuess(String guess) {
+        this.guess = guess;
+    }
+
+    public LocalDateTime getGuessTime() {
+        return guessTime;
+    }
+
+    public void setGuessTime(LocalDateTime guessTime) {
+        this.guessTime = guessTime;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
 
 }

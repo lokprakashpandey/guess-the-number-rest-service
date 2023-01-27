@@ -78,7 +78,7 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
         Round round = new Round();
         round.setGame(game);
         round.setGuess(guess);
-        round.setGuessTime(Timestamp.valueOf(LocalDateTime.now()));
+        round.setGuessTime(LocalDateTime.now());
         
         //e for exact match, p for partial match
         int e = 0, p = 0;

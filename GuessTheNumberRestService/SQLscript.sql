@@ -10,7 +10,7 @@ create table if not exists Rounds (
 id int auto_increment primary key,
 gameId int not null,
 guess char(4) not null,
-guessTime timestamp not null,
+guessTime datetime not null,
 result char(7) not null,
 constraint RoundsGamesFk foreign key (gameId) references Games(id)
 );
@@ -32,7 +32,7 @@ create table if not exists Rounds (
 id int auto_increment primary key,
 gameId int not null,
 guess char(4) not null,
-guessTime timestamp not null,
+guessTime datetime not null,
 result char(7) not null,
 constraint RoundsGamesFk foreign key (gameId) references Games(id)
 );
@@ -48,4 +48,3 @@ delete from rounds where id=1;
 delete from rounds where id=2;
 delete from games where id=101; -- succeeds
 drop database GuessTheNumberDBtest;
-

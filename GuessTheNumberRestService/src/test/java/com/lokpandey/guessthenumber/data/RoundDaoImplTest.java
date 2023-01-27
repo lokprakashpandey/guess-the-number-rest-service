@@ -8,8 +8,8 @@ package com.lokpandey.guessthenumber.data;
 
 import com.lokpandey.guessthenumber.models.Game;
 import com.lokpandey.guessthenumber.models.Round;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -83,24 +83,23 @@ public class RoundDaoImplTest {
         Round round = new Round();
         round.setGame(game);
         round.setGuess("5678");
-        round.setGuessTime(Timestamp.valueOf(LocalDateTime.now()));
+        round.setGuessTime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
         round.setResult("e:0:p:0");
         round = roundDao.add(round);
         
         Round round2 = new Round();
         round2.setGame(game);
         round2.setGuess("1234");
-        round2.setGuessTime(Timestamp.valueOf(LocalDateTime.now()));
+        round2.setGuessTime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
         round2.setResult("e:4:p:0");
         round2 = roundDao.add(round2);
         
         List<Round> rounds = roundDao.getRounds(game.getId());
         
-//        System.out.println(rounds.get(0).getGuessTime());
-//        System.out.println(rounds.get(1).getGuessTime());
-//        System.out.println(round.getGuessTime());
-//        System.out.println(round2.getGuessTime());
-//        
+        System.out.println(rounds.get(0).getGuessTime());
+        System.out.println(rounds.get(1).getGuessTime());
+        System.out.println(round.getGuessTime());
+        System.out.println(round2.getGuessTime());
         
         assertEquals(rounds.size(), 2);
         assertTrue(rounds.contains(round));
