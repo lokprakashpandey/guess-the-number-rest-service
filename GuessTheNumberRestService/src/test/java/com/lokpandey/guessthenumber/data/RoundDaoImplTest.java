@@ -49,26 +49,26 @@ public class RoundDaoImplTest {
     
     
     //for cleanup
-    private static RoundDao staticRoundDao;
-    @Autowired
-    public void setStaticGameDao(RoundDao roundDao) {
-        RoundDaoImplTest.staticRoundDao = roundDao;
-    }
-    
-    private static GameDao staticGameDao;
-    @Autowired
-    public void setStaticGameDao(GameDao gameDao) {
-        RoundDaoImplTest.staticGameDao = gameDao;
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-        List<Round> rounds = staticRoundDao.getAllRounds();
-        for(Round round: rounds) staticRoundDao.deleteRoundById(round.getId());
-        
-        List<Game> games = staticGameDao.getAllGames();
-        for(Game game: games) staticGameDao.deleteById(game.getId());
-    }
+//    private static RoundDao staticRoundDao;
+//    @Autowired
+//    public void setStaticGameDao(RoundDao roundDao) {
+//        RoundDaoImplTest.staticRoundDao = roundDao;
+//    }
+//    
+//    private static GameDao staticGameDao;
+//    @Autowired
+//    public void setStaticGameDao(GameDao gameDao) {
+//        RoundDaoImplTest.staticGameDao = gameDao;
+//    }
+//    
+//    @AfterClass
+//    public static void tearDownClass() {
+//        List<Round> rounds = staticRoundDao.getAllRounds();
+//        for(Round round: rounds) staticRoundDao.deleteRoundById(round.getId());
+//        
+//        List<Game> games = staticGameDao.getAllGames();
+//        for(Game game: games) staticGameDao.deleteById(game.getId());
+//    }
 
     /**
      * Test of add and getRounds method, of class RoundDaoImpl.
@@ -96,11 +96,11 @@ public class RoundDaoImplTest {
         
         List<Round> rounds = roundDao.getRounds(game.getId());
         
-        System.out.println(rounds.get(0).getGuessTime());
-        System.out.println(rounds.get(1).getGuessTime());
-        System.out.println(round.getGuessTime());
-        System.out.println(round2.getGuessTime());
-        
+//        System.out.println(rounds.get(0).getGuessTime());
+//        System.out.println(rounds.get(1).getGuessTime());
+//        System.out.println(round.getGuessTime());
+//        System.out.println(round2.getGuessTime());
+//        
         assertEquals(rounds.size(), 2);
         assertTrue(rounds.contains(round));
         assertTrue(rounds.contains(round2));        

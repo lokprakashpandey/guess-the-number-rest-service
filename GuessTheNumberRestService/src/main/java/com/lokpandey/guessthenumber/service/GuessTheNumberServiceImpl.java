@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.lokpandey.guessthenumber.data.GameDao;
 import com.lokpandey.guessthenumber.data.RoundDao;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Component
@@ -135,6 +134,10 @@ public class GuessTheNumberServiceImpl implements GuessTheNumberService {
     @Override
     public List<Round> findRoundsByGameId(int gameId) {
         List<Round> rounds = roundDao.getRounds(gameId);
+        for(Round round: rounds) {
+            if(round.getGame().getStatus().equalsIgnoreCase("In progress"))
+                round.getGame().setAnswer("****");
+        }
         return rounds;
     }
     

@@ -56,18 +56,18 @@ public class GameDaoImplTest {
     //*** Workaround for static AfterClass method ***
     //This is for clearing up the games table so that it contains no data
     //The Rounds table has not been modified so no need to change it
-    private static GameDao staticGameDao;
-    @Autowired
-    public void setStaticGameDao(GameDao gameDao) {
-        GameDaoImplTest.staticGameDao = gameDao;
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-        List<Game> games = staticGameDao.getAllGames();
-        for(Game game: games) staticGameDao.deleteById(game.getId());
-    }
-    
+//    private static GameDao staticGameDao;
+//    @Autowired
+//    public void setStaticGameDao(GameDao gameDao) {
+//        GameDaoImplTest.staticGameDao = gameDao;
+//    }
+//    
+//    @AfterClass
+//    public static void tearDownClass() {
+//        List<Game> games = staticGameDao.getAllGames();
+//        for(Game game: games) staticGameDao.deleteById(game.getId());
+//    }
+//    
     /**
      * Test of add and get method, of class GameDaoImpl.
      */
