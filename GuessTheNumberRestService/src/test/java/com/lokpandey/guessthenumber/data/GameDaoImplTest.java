@@ -9,7 +9,6 @@ package com.lokpandey.guessthenumber.data;
 import com.lokpandey.guessthenumber.models.Game;
 import com.lokpandey.guessthenumber.models.Round;
 import java.util.List;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -138,7 +137,6 @@ public class GameDaoImplTest {
         game = gameDao.add(game);
         
         gameDao.deleteById(game.getId());
-        
         try {
             Game fromDao = gameDao.get(game.getId());
             fail("EmptyResultDataAccessException must have occurred");
